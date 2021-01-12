@@ -16,7 +16,7 @@ for details.
 
 See the main Zoltan page at http://cs.sandia.gov/Zoltan for more details.
 
-Release info:  https://htmlpreview.github.io/?http://cs.sandia.gov/Zoltan/ug_html/ug_release.html
+Release info:  https://htmlpreview.github.io/?http://github.com/sandialabs/zoltan/blob/master/doc/Zoltan_html/ug_html/ug_release.html
 * Version 3.83 (1/28/16; as in Trilinos v12.6; aaf328db7e43001ee2d3148f72f12147e51c3293)
 * Version 3.82 (5/1/15; as in Trilinos v12)
 * Version 3.81 (11/06/14; as in Trilinos v11.12.2)
