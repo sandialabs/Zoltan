@@ -3,7 +3,11 @@ Zoltan Dynamic Load Balancing and Graph Algorithm Toolkit -- Distribution site
 
 The most up-to-date version of Zoltan is in the Trilinos framework at https://github.com/trilinos/Trilinos.  
 
-This site provides stand-alone distributions of Zoltan, separate from Trilinos.  However, stand-alone releases of Zoltan may lag the Trilinos repo code.
+This site provides stand-alone distributions of Zoltan, separate from Trilinos.  However, stand-alone releases of Zoltan may lag the Trilinos repo code. 
+
+You can download individual releases of Zoltan from this site, or clone the Trilinos repository https://github.com/trilinos/Trilinos to get the most up-to-date version of Zoltan.  Individual releases are tarballs that can be unzipped and built with autotools/make.  Trilinos clones include Zoltan in directory Trilinos/packages/zoltan.  In this directory, you can 
+build Zoltan separately from Trilinos using autotools/make.  Or in the Trilinos repository, you can build Zoltan using Trilinos' cmake system.
+See http://www.cs.sandia.gov/zoltan/ug_html/ug_usage.html for details.
 
 See the main Zoltan page at http://cs.sandia.gov/Zoltan for more details.
 
@@ -24,3 +28,4 @@ Release info:  http://cs.sandia.gov/Zoltan/ug_html/ug_release.html
 * Version 1.4 (6/18/02)
 * Version 1.3 (3/27/02) -- the Original
 
+Questions?  Email zoltan-dev@software.sandia.gov
