@@ -5,13 +5,18 @@ The most up-to-date version of Zoltan is in the Trilinos framework at https://gi
 
 This site provides stand-alone distributions of Zoltan, separate from Trilinos.  However, stand-alone releases of Zoltan may lag the Trilinos repo code. 
 
-You can download individual releases of Zoltan from this site, or clone the Trilinos repository https://github.com/trilinos/Trilinos to get the most up-to-date version of Zoltan.  Individual releases are tarballs that can be unzipped and built with autotools/make.  Trilinos clones include Zoltan in directory Trilinos/packages/zoltan.  In this directory, you can 
-build Zoltan separately from Trilinos using autotools/make.  Or in the Trilinos repository, you can build Zoltan using Trilinos' cmake system.
-See http://www.cs.sandia.gov/zoltan/ug_html/ug_usage.html for details.
+You can download individual releases of Zoltan from this site, or clone the Trilinos repository 
+https://github.com/trilinos/Trilinos to get the most up-to-date version of Zoltan.  
+Individual releases are tarballs that can be unzipped and built with autotools/make.  
+Trilinos clones include Zoltan in directory Trilinos/packages/zoltan.  In this directory, you can 
+build Zoltan separately from Trilinos using autotools/make.  Or in the Trilinos repository, 
+you can build Zoltan using Trilinos' cmake system.
+See https://htmlpreview.github.io/?https://github.com/sandialabs/zoltan/blob/master/doc/Zoltan_html/ug_html/ug_usage.html
+for details.
 
 See the main Zoltan page at http://cs.sandia.gov/Zoltan for more details.
 
-Release info:  http://cs.sandia.gov/Zoltan/ug_html/ug_release.html
+Release info:  https://htmlpreview.github.io/?http://cs.sandia.gov/Zoltan/ug_html/ug_release.html
 * Version 3.83 (1/28/16; as in Trilinos v12.6; aaf328db7e43001ee2d3148f72f12147e51c3293)
 * Version 3.82 (5/1/15; as in Trilinos v12)
 * Version 3.81 (11/06/14; as in Trilinos v11.12.2)
