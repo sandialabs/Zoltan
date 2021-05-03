@@ -18,6 +18,7 @@ for details on building Zoltan.
 The main Zoltan page is http://cs.sandia.gov/Zoltan.
 
 Release history:  https://htmlpreview.github.io/?https://github.com/sandialabs/zoltan/blob/master/doc/Zoltan_html/ug_html/ug_release.html
+* Version 3.90 (4/08/21; as in Trilinos v13; d328e0e2a8a5c48a4e01d6541cd8c0eb7f364823)
 * Version 3.83 (1/28/16; as in Trilinos v12.6; aaf328db7e43001ee2d3148f72f12147e51c3293)
 * Version 3.82 (5/1/15; as in Trilinos v12)
 * Version 3.81 (11/06/14; as in Trilinos v11.12.2)

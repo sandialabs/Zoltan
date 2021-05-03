@@ -66,6 +66,7 @@ using namespace std;
 #endif
 
 #include "dr_const.h"
+#include "dr_externs.h"
 #include "dr_err_const.h"
 #include "dr_loadbal_const.h"
 #include "dr_eval_const.h"
@@ -131,7 +132,7 @@ int setup_zoltan(Zoltan &zz, int Proc, PROB_INFO_PTR prob,
 /* Local declarations. */
   const char *yo = "setup_zoltan";
   int ierr;                      /* Error code */
-  char errmsg[128];              /* Error message */
+  char errmsg[256];              /* Error message */
 
   DEBUG_TRACE_START(Proc, yo);
 
@@ -435,7 +436,7 @@ int setup_zoltan(Zoltan &zz, int Proc, PROB_INFO_PTR prob,
     return 0;
   }
 
-  if (mesh->data_type == HYPERGRAPH) {
+  if (mesh->data_type == ZOLTAN_HYPERGRAPH) {
     if (zz.Set_HG_Size_CS_Fn(get_hg_size_compressed_pin_storage,
 	 (void *) mesh) == ZOLTAN_FATAL) {
       Gen_Error(0,
@@ -848,7 +849,7 @@ MESH_INFO_PTR mesh;
 
   STOP_CALLBACK_TIMER;
 
-  if ((mesh->data_type == HYPERGRAPH) && mesh->visible_nvtx) {
+  if ((mesh->data_type == ZOLTAN_HYPERGRAPH) && mesh->visible_nvtx) {
     int i, cnt = 0;
     for (i = 0; i < mesh->num_elems; i++)
       if (mesh->elements[i].globalID <= mesh->visible_nvtx) cnt++;
@@ -889,7 +890,7 @@ void get_elements(void *data, int num_gid_entries, int num_lid_entries,
     if (mesh->blank && mesh->blank[i]) continue;
 
     current_elem = &elem[i];
-    if ((mesh->data_type == HYPERGRAPH) && mesh->visible_nvtx &&
+    if ((mesh->data_type == ZOLTAN_HYPERGRAPH) && mesh->visible_nvtx &&
 	(current_elem->globalID > mesh->visible_nvtx)) continue;
 
     for (j = 0; j < gid; j++) global_id[idx*num_gid_entries+j]=0;
@@ -2192,6 +2193,7 @@ static void test_point_drops(
 {
 int status;
 int one_part, one_proc;
+int one_part_only;
 int i;
 
   if (test_both) {
@@ -2223,6 +2225,7 @@ int i;
     fprintf(fp, "%d Zoltan_LB_Point_PP_Assign (%e %e %e) on proc %d part %d\n",
 	    Proc, x[0], x[1], x[2], one_proc, one_part);
 
+    /* Check that the result is in result from Zoltan_LB_Box_PP_Assign */
     for (i = 0; i < proccnt; i++)
       if (one_proc == procs[i])
 	break;
@@ -2239,6 +2242,19 @@ int i;
 	fprintf(fp, "%d Error:  partition %d (from Zoltan_LB_Point_PP_Assign) "
 		    "not in part list from Zoltan_LB_Box_PP_Assign\n",
 		    Proc, one_part);
+    }
+
+    /* Test part-only interface */
+    status = zz.LB_Point_PP_Assign(x, one_part_only);
+    if (status != ZOLTAN_OK) 
+      fprintf(fp, "error returned from part-only version of "
+                  "Zoltan_LB_Point_PP_Assign()\n");
+    else {
+      if (one_part_only != one_part) {
+        fprintf(fp, "%d Error:  inconsistent results from part-only (%d) and "
+                    " part+proc (%d) versions of Zoltan_LB_Box_PP_Assign\n",
+                    Proc, one_part_only, one_part);
+      }
     }
   }
 }

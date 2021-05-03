@@ -65,6 +65,7 @@ double Timer_Callback_Time, Timer_Global_Callback_Time;
 #include <unistd.h>
 
 #include "dr_const.h"
+#include "dr_externs.h"
 #include "dr_err_const.h"
 #include "dr_loadbal_const.h"
 #include "dr_eval_const.h"
@@ -149,7 +150,7 @@ int setup_zoltan(struct Zoltan_Struct *zz, int Proc, PROB_INFO_PTR prob,
   int nprocs;                    /* Number of processors. */
   int i;                         /* Loop index */
   int ierr;                      /* Error code */
-  char errmsg[128];              /* Error message */
+  char errmsg[256];              /* Error message */
 
   DEBUG_TRACE_START(Proc, yo);
 
@@ -496,7 +497,7 @@ int setup_zoltan(struct Zoltan_Struct *zz, int Proc, PROB_INFO_PTR prob,
   }
 
   /* Hypergraph-based callbacks */
-  if ((mesh->data_type == HYPERGRAPH) && Test.Hypergraph_Callbacks) {
+  if ((mesh->data_type == ZOLTAN_HYPERGRAPH) && Test.Hypergraph_Callbacks) {
 
     if (Zoltan_Set_Fn(zz, ZOLTAN_HG_SIZE_CS_FN_TYPE,
 		      (void (*)()) get_hg_size_compressed_pin_storage,
@@ -875,11 +876,11 @@ exit(-1);
       ZOLTAN_ID_PTR order_gids = NULL;  /* List of all gids for ordering */
       ZOLTAN_ID_PTR order_lids = NULL;  /* List of all lids for ordering */
 
-      num_lid_entries =1;
-      num_gid_entries = 1;
+      num_lid_entries = Num_LID;
+      num_gid_entries = Num_GID;
 
       if (Test.Dynamic_Graph && !Proc){
-	printf("ORDERING DOES NOT WITH WITH DYNAMIC GRAPHS.\n");
+	printf("ORDERING DOES NOT WORK WITH DYNAMIC GRAPHS.\n");
 	printf("Turn off \"test dynamic graph\".\n");
       }
 
@@ -908,6 +909,9 @@ exit(-1);
       /* Not yet impl. */
     }
 
+    {
+    double kddstart = MPI_Wtime();
+
     if (Zoltan_Order(zz, num_gid_entries,
 	mesh->num_elems, order_gids,
 	order) == ZOLTAN_FATAL) {
@@ -916,6 +920,12 @@ exit(-1);
       safe_free((void **)(void *) &order_gids);
       safe_free((void **)(void *) &order_lids);
       return 0;
+    }
+
+    MPI_Barrier(MPI_COMM_WORLD);
+    if (Proc == 0)
+      printf("\nOrdering time = %f seconds\n", MPI_Wtime() - kddstart);
+
     }
 
     /* Evaluate the new ordering */
@@ -957,6 +967,9 @@ exit(-1);
       ZOLTAN_ID_PTR gids = NULL;  /* List of all gids for ordering */
       ZOLTAN_ID_PTR lids = NULL;  /* List of all lids for ordering */
 
+      num_lid_entries = Num_LID;
+      num_gid_entries = Num_GID;
+
       if (Test.Dynamic_Graph && !Proc){
 	printf("COLORING DOES NOT WORK WITH DYNAMIC GRAPHS.\n");
 	printf("Turn off \"test dynamic graph\".\n");
@@ -995,8 +1008,8 @@ exit(-1);
                   lids[i*num_lid_entries+num_lid_entries-1] = -1;
               }
           }
-          MPI_Bcast(gids+mesh->num_elems, addIDs, ZOLTAN_ID_MPI_TYPE, 0, MPI_COMM_WORLD);
-          MPI_Bcast(lids+mesh->num_elems, addIDs, ZOLTAN_ID_MPI_TYPE, 0, MPI_COMM_WORLD);
+          MPI_Bcast(gids+(mesh->num_elems*num_gid_entries), addIDs*num_gid_entries, ZOLTAN_ID_MPI_TYPE, 0, MPI_COMM_WORLD);
+          MPI_Bcast(lids+(mesh->num_elems*num_gid_entries), addIDs*num_gid_entries, ZOLTAN_ID_MPI_TYPE, 0, MPI_COMM_WORLD);
           if (Proc == 0)
               addIDs = 0;
       }
@@ -1016,7 +1029,7 @@ exit(-1);
 	  if (Proc == 0)
 	      printf("\nVerifying coloring result\n");
 	  if (Zoltan_Color_Test(zz, &num_gid_entries, &num_lid_entries,
-				mesh->num_elems, gids, lids, color) == ZOLTAN_FATAL) {
+				mesh->num_elems+addIDs, gids, lids, color) == ZOLTAN_FATAL) {
 	      Gen_Error(0, "fatal:  error returned from Zoltan_Color_Test()\n");
 	      safe_free((void **)(void *) &color);
 	      safe_free((void **)(void *) &gids);
@@ -1101,7 +1114,7 @@ MESH_INFO_PTR mesh;
 
   STOP_CALLBACK_TIMER;
 
-  if ((mesh->data_type == HYPERGRAPH) && mesh->visible_nvtx) {
+  if ((mesh->data_type == ZOLTAN_HYPERGRAPH) && mesh->visible_nvtx) {
     int i, cnt = 0;
     for (i = 0; i < mesh->num_elems; i++)
       if (mesh->elements[i].globalID <= mesh->visible_nvtx) cnt++;
@@ -1142,7 +1155,7 @@ void get_elements(void *data, int num_gid_entries, int num_lid_entries,
     if (mesh->blank && mesh->blank[i]) continue;
 
     current_elem = &elem[i];
-    if ((mesh->data_type == HYPERGRAPH) && mesh->visible_nvtx &&
+    if ((mesh->data_type == ZOLTAN_HYPERGRAPH) && mesh->visible_nvtx &&
 	(current_elem->globalID > mesh->visible_nvtx)) continue;
 
     for (j = 0; j < gid; j++) global_id[idx*num_gid_entries+j]=0;

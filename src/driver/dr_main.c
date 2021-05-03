@@ -82,8 +82,6 @@ extern "C" {
 #endif
 
 extern void Zoltan_write_linux_meminfo(int append, char *msg, int committedOnly);
-extern int Zoltan_get_global_id_type(char **name);
-
 int Debug_Driver = 1;
 int Number_Iterations = 1;
 int Driver_Action = 1;	/* Flag indicating coloring, load-balancing or ordering. */
@@ -190,7 +188,7 @@ int main(int argc, char *argv[])
   Test.Graph_Callbacks = 1;
   Test.Hypergraph_Callbacks = 1;
   Test.Gen_Files = 0;
-  Test.Null_Lists = NONE;
+  Test.Null_Lists = NO_NULL_LISTS;
   Test.Dynamic_Weights = .0;
   Test.Dynamic_Graph = .0;
   Test.Vtx_Inc = 0;
@@ -335,7 +333,7 @@ int main(int argc, char *argv[])
        *  Create a Zoltan DD for tracking elements during repartitioning.
        */
 
-      if (mesh.data_type == HYPERGRAPH && !build_elem_dd(&mesh)) {
+      if (mesh.data_type == ZOLTAN_HYPERGRAPH && !build_elem_dd(&mesh)) {
         Gen_Error(0, "fatal: Error returned from build_elem_dd\n");
         error_report(Proc);
         print_output = 0;
@@ -395,7 +393,7 @@ int main(int argc, char *argv[])
     }
 
     if (Test.Vtx_Inc){
-      if (mesh.data_type == HYPERGRAPH ) {
+      if (mesh.data_type == ZOLTAN_HYPERGRAPH ) {
         if (Test.Vtx_Inc>0)
           mesh.visible_nvtx += Test.Vtx_Inc; /* Increment uniformly */
         else
@@ -467,7 +465,7 @@ if (iteration == 1) {
       int i, j;
       float tmp;
       float twiddle = 0.01;
-      char str[4];
+      char str[32];
       /* Perturb coordinates of mesh */
       if (mesh.data_type == ZOLTAN_GRAPH){
         for (i = 0; i < mesh.num_elems; i++) {
@@ -651,11 +649,15 @@ static void print_input_info(FILE *fp, int Num_Proc, PROB_INFO_PTR prob,
 PARIO_INFO_PTR pio, float zoltan_version)
 {
 int i;
+int idtypesize;
+char *idtypename;
 
   fprintf(fp, "Input values:\n");
   fprintf(fp, "  Zoltan version %g\n",zoltan_version);
   fprintf(fp, "  %s version %s\n", DRIVER_NAME, VER_STR);
   fprintf(fp, "  Total number of Processors = %d\n", Num_Proc);
+  idtypesize = Zoltan_get_global_id_type(&idtypename);
+  fprintf(fp, "  ZOLTAN_ID_TYPE size %d name %s\n", idtypesize, idtypename);
 
   fprintf(fp, "\n  Performing load balance using %s.\n", prob->method);
   fprintf(fp, "\tParameters:\n");
@@ -712,7 +714,6 @@ int i;
     }
     fprintf(fp, "\n");
   }
-
 
   fprintf(fp, "##########################################################\n");
 }

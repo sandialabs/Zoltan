@@ -45,6 +45,7 @@
  */
 
 #include "dr_const.h"
+#include "dr_externs.h"
 #include "dr_util_const.h"
 #include "dr_par_util_const.h"
 #include "dr_err_const.h"
@@ -127,14 +128,14 @@ int output_gnu(const char *cmd_file,
   int    i, j, nelems;
   int    prev_part = -1;
   int    max_part = -1;
-  float    locMaxX = INT_MIN;
-  float    locMinX = INT_MAX;
-  float    locMaxY = INT_MIN;
-  float    locMinY = INT_MAX;
-  float    globMaxX = INT_MIN;
-  float    globMinX = INT_MAX;
-  float    globMaxY = INT_MIN;
-  float    globMinY = INT_MAX;
+  float    locMaxX = (float)INT_MIN;
+  float    locMinX = (float)INT_MAX;
+  float    locMaxY = (float)INT_MIN;
+  float    locMinY = (float)INT_MAX;
+  float    globMaxX = (float)INT_MIN;
+  float    globMinX = (float)INT_MAX;
+  float    globMaxY = (float)INT_MIN;
+  float    globMinY = (float)INT_MAX;
   int    gmax_part = Num_Proc-1;
   int    gnum_part = Num_Proc;
   int   *parts = NULL;

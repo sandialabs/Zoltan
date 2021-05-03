@@ -53,6 +53,7 @@
 #include <ctype.h>
 
 #include "dr_const.h"
+#include "dr_externs.h"
 #include "dr_input_const.h"
 #include "dr_util_const.h"
 #include "dr_err_const.h"
@@ -776,7 +777,7 @@ void brdcst_cmd_info (
   case HYPERGRAPH_FILE:
   case MATRIXMARKET_FILE:
   case MATRIXMARKET_PLUS_FILE:
-    mesh->data_type = HYPERGRAPH;
+    mesh->data_type = ZOLTAN_HYPERGRAPH;
     break;
   }
 

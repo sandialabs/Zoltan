@@ -58,6 +58,7 @@
 #endif
 
 #include "dr_const.h"
+#include "dr_externs.h"
 #include "dr_input_const.h"
 #include "dr_util_const.h"
 #include "dr_par_util_const.h"
@@ -87,7 +88,7 @@ extern "C" {
 /****************************************************************************/
 
 /* Don't generate coords and graph file if nvtxs > this number */
-#define OUTPUT_FILES_MAX_NVTXS 1000
+#define OUTPUT_FILES_MAX_NVTXS 1
 
 /* Use "size" as number of triangles - generate three points for each,
  * this gives us some adjacencies in the .graph file - also can
@@ -117,7 +118,7 @@ int create_random_triangles(
 
   short *assignments = NULL;
 
-  char filename[256];
+  char filename[FILENAME_MAX+9];
   FILE *fpg = NULL, *fpc = NULL;  /* Files to echo random input */
 
 /***************************** BEGIN EXECUTION ******************************/
@@ -161,7 +162,7 @@ int create_random_triangles(
       switch (ndim) {
       case 1:
         for (i = 0; i < nvtxs; i+=3)  {
-          x[i] = ((float) rand())/RAND_MAX;
+          x[i] = ((float) rand())/(float)RAND_MAX;
           x[i+1] = x[i] - diff;
           x[i+2] = x[i] + diff;
           if (fpc != NULL) fprintf(fpc, "%e\n%e\n%e\n", x[i],x[i+1],x[i+2]);
@@ -169,8 +170,8 @@ int create_random_triangles(
         break;
       case 2:
         for (i = 0; i < nvtxs; i+=3)  {
-          x[i] = ((float) rand())/RAND_MAX;
-          y[i] = ((float) rand())/RAND_MAX;
+          x[i] = ((float) rand())/(float)RAND_MAX;
+          y[i] = ((float) rand())/(float)RAND_MAX;
           x[i+1] = x[i] - diff;
           y[i+1] = y[i];
           x[i+2] = x[i];
@@ -181,9 +182,9 @@ int create_random_triangles(
         break;
       case 3:
         for (i = 0; i < nvtxs; i+=3)  {
-          x[i] = ((float) rand())/RAND_MAX;
-          y[i] = ((float) rand())/RAND_MAX;
-          z[i] = ((float) rand())/RAND_MAX;
+          x[i] = ((float) rand())/(float)RAND_MAX;
+          y[i] = ((float) rand())/(float)RAND_MAX;
+          z[i] = ((float) rand())/(float)RAND_MAX;
           x[i+1] = x[i] - diff;
           y[i+1] = y[i];
           z[i+1] = z[i];
@@ -210,7 +211,7 @@ int create_random_triangles(
             /* Only assign one of the weight dimensions a weight>0. */
             /* Modify to get more complicated test cases. */
             if (j == i%vwgt_dim){
-              wgt = ((float) rand())/RAND_MAX;
+              wgt = ((float) rand())/(float)RAND_MAX;
               vwgts[w+j] = wgt;
               w += vwgt_dim;
               vwgts[w+j] = wgt;
@@ -314,7 +315,7 @@ int create_random_input(
 
   short *assignments = NULL;
 
-  char filename[256];
+  char filename[FILENAME_MAX+9];
   FILE *fpg = NULL, *fpc = NULL;  /* Files to echo random input */
 
 /***************************** BEGIN EXECUTION ******************************/
@@ -327,7 +328,7 @@ int create_random_input(
      * and then let random input be distributed as a Chaco graph would be. */
 
     /* read the array in on processor 0 */
-    nvtxs = pio_info->init_size;
+    nvtxs = pio_info->init_size*Num_Proc;
     ndim = pio_info->init_dim;
     vwgt_dim = pio_info->init_vwgt_dim;
     if (vwgt_dim<1) vwgt_dim=1; /* For now, insist on 1 or more weights. */
@@ -355,22 +356,22 @@ int create_random_input(
       switch (ndim) {
       case 1:
         for (i = 0; i < nvtxs; i++)  {
-          x[i] = ((float) rand())/RAND_MAX;
+          x[i] = ((float) rand())/(float)RAND_MAX;
           if (fpc != NULL) fprintf(fpc, "%e\n", x[i]);
         }
         break;
       case 2:
         for (i = 0; i < nvtxs; i++)  {
-          x[i] = ((float) rand())/RAND_MAX;
-          y[i] = ((float) rand())/RAND_MAX;
+          x[i] = ((float) rand())/(float)RAND_MAX;
+          y[i] = ((float) rand())/(float)RAND_MAX;
           if (fpc != NULL) fprintf(fpc, "%e %e\n", x[i], y[i]);
         }
         break;
       case 3:
         for (i = 0; i < nvtxs; i++)  {
-          x[i] = ((float) rand())/RAND_MAX;
-          y[i] = ((float) rand())/RAND_MAX;
-          z[i] = ((float) rand())/RAND_MAX;
+          x[i] = ((float) rand())/(float)RAND_MAX;
+          y[i] = ((float) rand())/(float)RAND_MAX;
+          z[i] = ((float) rand())/(float)RAND_MAX;
           if (fpc != NULL) fprintf(fpc, "%e %e %e\n", x[i], y[i], z[i]);
         }
         break;
@@ -385,7 +386,7 @@ int create_random_input(
             /* Only assign one of the weight dimensions a weight>0. */
             /* Modify to get more complicated test cases. */
             if (j == i%vwgt_dim)
-              vwgts[i*vwgt_dim+j] = ((float) rand())/RAND_MAX;
+              vwgts[i*vwgt_dim+j] = ((float) rand())/(float)RAND_MAX;
             else
               vwgts[i*vwgt_dim+j] = 0.0;
           }
@@ -632,7 +633,7 @@ int create_a_graph(
         /* Only assign one of the weight dimensions a weight>0. */
         /* Modify to get more complicated test cases. */
         if (jj == (int)(i%vwgt_dim))
-          vwgts[i*vwgt_dim+jj] = ((float) rand())/RAND_MAX;
+          vwgts[i*vwgt_dim+jj] = ((float) rand())/(float)RAND_MAX;
         else
           vwgts[i*vwgt_dim+jj] = 0.0;
       }

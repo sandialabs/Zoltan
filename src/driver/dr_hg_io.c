@@ -55,6 +55,7 @@
 #include <ctype.h>
 
 #include "dr_const.h"
+#include "dr_externs.h"
 #include "dr_input_const.h"
 #include "dr_util_const.h"
 #include "dr_par_util_const.h"
@@ -154,7 +155,7 @@ int read_hypergraph_file(
 {
   /* Local declarations. */
   const char  *yo = "read_hypergraph_file";
-  char   cmesg[256];
+  char   cmesg[FILENAME_MAX+256];
 
   int    i, distributed_pins = 0, vertex, nextEdge;
   int    nvtxs = 0, nhedges = 0, npins = 0;
@@ -166,7 +167,7 @@ int read_hypergraph_file(
   float *hewgts = NULL, *vwgts = NULL;
   ZOLTAN_FILE* fp = NULL;
   int base = 0;   /* Smallest vertex number; usually zero or one. */
-  char filename[256];
+  char filename[FILENAME_MAX+9];
 
   /* Variables that allow graph-based functions to be reused. */
   /* If no chaco.graph or chaco.coords files exist, values are NULL or 0,
@@ -207,8 +208,8 @@ int read_hypergraph_file(
 	return 0;
     }
 
-      fp = ZOLTAN_FILE_open(filename, "r", pio_info->file_comp);
-      file_error = (fp == NULL);
+    fp = ZOLTAN_FILE_open(filename, "r", pio_info->file_comp);
+    file_error = (fp == NULL);
   }
 
 
@@ -419,7 +420,7 @@ int read_hypergraph_file(
   }
 
   /* Initialize mesh structure for Hypergraph. */
-  mesh->data_type = HYPERGRAPH;
+  mesh->data_type = ZOLTAN_HYPERGRAPH;
   mesh->num_elems = nvtxs;
   mesh->vwgt_dim = vwgt_dim;
   mesh->ewgt_dim = ch_ewgt_dim;
@@ -550,7 +551,7 @@ int read_mtxplus_file(
 {
   /* Local declarations. */
   const char  *yo = "read_mtxplus_file";
-  char filename[256], cmesg[256];
+  char filename[FILENAME_MAX+9], cmesg[FILENAME_MAX+256];
   struct stat statbuf;
   int rc, fsize, i, j;
   char *filebuf=NULL;
@@ -708,7 +709,7 @@ int read_mtxplus_file(
   safe_free((void **)(void *)&myPinJ);
 
   /* Initialize mesh structure for Hypergraph. */
-  mesh->data_type = HYPERGRAPH;
+  mesh->data_type = ZOLTAN_HYPERGRAPH;
   mesh->num_elems = nMyVtx;
   mesh->vwgt_dim = vtxWDim;
   mesh->ewgt_dim = 0;
@@ -1369,8 +1370,9 @@ char linestr[MATRIX_MARKET_MAX_LINE+1];
 
     line = pinBuf;
     counter = 0;
-    // Skip any additional comment lines before pins begin
-    // Zoltan_Generate_Files adds an extra comment line here to mtxp files.
+    /* Skip any additional comment lines before pins begin
+     * Zoltan_Generate_Files adds an extra comment line here to mtxp files.
+     */
     while (line) {
       if (line[0] != COMMENT_CHAR)
         break;
@@ -1403,8 +1405,9 @@ char linestr[MATRIX_MARKET_MAX_LINE+1];
     }
 
     line = vwgtBuf;
-    // Skip any additional comment lines before vwgts begin
-    // Zoltan_Generate_Files adds an extra comment line here to mtxp files.
+    /* Skip any additional comment lines before vwgts begin
+     * Zoltan_Generate_Files adds an extra comment line here to mtxp files.
+     */
     while (line) {
       if (line[0] != COMMENT_CHAR)
         break;
@@ -1439,8 +1442,9 @@ char linestr[MATRIX_MARKET_MAX_LINE+1];
 
     if (numew > 0){                      /* HYPEREDGE WEIGHTS */
       line = ewgtBuf;
-      // Skip any additional comment lines before ewgts begin
-      // Zoltan_Generate_Files adds an extra comment line here to mtxp files.
+      /* Skip any additional comment lines before ewgts begin
+       * Zoltan_Generate_Files adds an extra comment line here to mtxp files.
+       */
       while (line) {
         if (line[0] != COMMENT_CHAR)
           break;

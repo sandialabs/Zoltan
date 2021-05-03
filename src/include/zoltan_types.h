@@ -49,7 +49,9 @@
 
 #include <mpi.h>
 #include <stddef.h>
+#ifndef _WIN32
 #include <unistd.h>
+#endif
 #include <limits.h>
 
 /* int64_t is needed by 64-bit PT-Scotch header file .
@@ -169,7 +171,7 @@ typedef unsigned long long ZOLTAN_ID_TYPE;
 #define ZOLTAN_ID_MPI_TYPE  MPI_LONG_LONG_INT
 #define zoltan_mpi_id_datatype_name "MPI_LONG_LONG_INT"
 #define zoltan_id_datatype_name "unsigned long long"
-#define ZOLTAN_ID_SPEC  "%Lu"
+#define ZOLTAN_ID_SPEC  "%llu"
 #define ZOLTAN_ID_CONSTANT(z)  z ## LL
 #define ZOLTAN_ID_INVALID  ULLONG_MAX
 

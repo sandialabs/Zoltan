@@ -1,4 +1,4 @@
-/* 
+/*
  * @HEADER
  *
  * ***********************************************************************
@@ -44,34 +44,64 @@
  * @HEADER
  */
 
-#ifndef __TIMER_H
-#define __TIMER_H
-
-#include "zoltan_timer.h"
-#include <time.h> /* ANSI C; defines clock_t and clock() */
-
-#ifndef CLOCKS_PER_SEC /* Should have been defined in time.h */
-#define CLOCKS_PER_SEC 1000000 /* To prevent compile errors, not always the correct value. */
+#ifdef __cplusplus
+/* if C++, define the rest of this header file as extern C */
+extern "C" {
 #endif
 
-/*
- * POSIX compliant systems should use times() for user timing. 
- * This is the default in Zoltan. Make Zoltan with -DNO_TIMES if
- * your system does not have sys/times.h and times().
- * Note: BSD-like systems may use getrusage() instead for user timing,
- * but that has not been implemented here. 
+#include "zz_const.h"
+#include "rcb.h"
+#include "zoltan_partition_tree.h"
+
+/****************************************************************************/
+
+int Zoltan_RCB_Partition_Tree(
+struct Zoltan_Struct     *zz,              /* The Zoltan structure */
+int    treeNodeIndex,    /* tree node index in zoltan rcb */
+int    *parent,          /* parent partition number */
+int    *left_leaf,       /* left leaf partition number */
+int    *right_leaf       /* right leaf partition number */
+)
+{
+/* Return the rcb tree information.
  */
 
-#if defined(__PUMAGON__) || defined(__LIBCATAMOUNT__) || defined(_WIN32)
-/* Tflops with Cougar & Red Storm w/Catamount does not have sysconf() or times() */
-/* Microsoft Visual Studio does not have times either */
-#define NO_TIMES
-#endif /* __PUMAGON__ */
+static char       *yo = "Zoltan_RCB_Partition_Tree";
+struct rcb_tree   *treept; /* tree of RCB cuts */
+int                ierr = ZOLTAN_OK;
 
-#ifndef NO_TIMES
-/* #include <sys/types.h> -- Included by sys/times.h on most systems. */
-#include <sys/times.h>
-#include <unistd.h> /* Needed for sysconf() and _SC_CLK_TCK */
-#endif
+  if (zz->LB.Data_Structure == NULL) {
+    ZOLTAN_PRINT_ERROR(zz->Proc, yo,
+      "No Decomposition Data available; use KEEP_CUTS parameter.");
+    ierr = ZOLTAN_FATAL;
+    goto End;
+  }
 
+  if (zz->LB.Method != RCB) {
+    ZOLTAN_PRINT_ERROR(zz->Proc, yo,
+      "Function can be used only with LB_METHOD == RCB.");
+    ierr = ZOLTAN_FATAL;
+    goto End;
+  }
+
+  RCB_STRUCT * rcb = (RCB_STRUCT *) (zz->LB.Data_Structure);
+  treept = rcb->Tree_Ptr;
+
+  if (treept[0].dim < 0) {     /* RCB tree was never created. */
+    ZOLTAN_PRINT_ERROR(zz->Proc, yo, "No RCB tree saved; "
+      " Must set parameter KEEP_CUTS to 1.");
+    ierr = ZOLTAN_FATAL;
+    goto End;
+  }
+
+  *parent = treept[treeNodeIndex].parent;
+  *left_leaf = treept[treeNodeIndex].left_leaf;
+  *right_leaf = treept[treeNodeIndex].right_leaf;
+
+End:
+  return ierr;
+}
+
+#ifdef __cplusplus
+} /* closing bracket for extern "C" */
 #endif

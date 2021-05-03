@@ -37,6 +37,7 @@ SET(COMMON_DRIVER_HDRS
   dr_compress_const.h
   dr_hg_readfile.h
   dr_const.h
+  dr_externs.h
   dr_input_const.h
   dr_util_const.h
   dr_err_const.h
@@ -86,6 +87,7 @@ TRIBITS_ADD_EXECUTABLE(
   NOEXEPREFIX
   SOURCES ${COMMON_DRIVER_HDRS} ${ZDRIVE_SOURCES}
   COMM serial mpi
+  CATEGORIES BASIC PERFORMANCE
   )
 
 IF (${PACKAGE_NAME}_ENABLE_CPPDRIVER)

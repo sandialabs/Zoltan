@@ -163,7 +163,7 @@ extern "C" {
 #define MAX_CPU_WGTS	10 /* max number of cpu weights */
 
 enum LISTS {  /* NULL lists to pass to Zoltan_Migrate */
-  NONE = 0,
+  NO_NULL_LISTS = 0,
   IMPORT_LISTS,
   EXPORT_LISTS
 };
@@ -171,7 +171,7 @@ enum LISTS {  /* NULL lists to pass to Zoltan_Migrate */
 enum DATA_TYPE {
   MESH = 0,
   ZOLTAN_GRAPH,
-  HYPERGRAPH
+  ZOLTAN_HYPERGRAPH
 };
 
 enum PARTITIONING_TYPE {
@@ -375,27 +375,6 @@ struct Output_Flags {
   int Plot_Partition;
   int Mesh_Info_File;
 };
-
-/* Global variables for driver */
-extern int Debug_Driver;
-extern int Debug_Chaco_Input;
-extern int Number_Iterations;
-extern int Driver_Action;
-extern int Chaco_In_Assign_Inv;
-extern struct Test_Flags Test;
-extern struct Output_Flags Output;
-
-extern double Total_Partition_Time;
-
-#define DEBUG_TRACE_START(proc,yo) \
-  if (((proc) == 0 && Debug_Driver > 1) || (Debug_Driver > 2))  \
-    printf("%d DRIVER ENTERING %s\n", (proc), yo);
-#define DEBUG_TRACE_END(proc,yo) \
-  if (((proc) == 0 && Debug_Driver > 1) || (Debug_Driver > 2))  \
-    printf("%d DRIVER LEAVING %s\n", (proc), yo);
-#define DEBUG_TRACE_DETAIL(proc,yo,str) \
-  if (Debug_Driver > 2) \
-    printf("%d DRIVER %s: %s\n", proc,yo, str);
 
 #ifdef __cplusplus
 } /* closing bracket for extern "C" */

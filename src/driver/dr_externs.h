@@ -44,34 +44,38 @@
  * @HEADER
  */
 
-#ifndef __TIMER_H
-#define __TIMER_H
+#ifndef _DR_EXTERNS_H
+#define _DR_EXTERNS_H
 
-#include "zoltan_timer.h"
-#include <time.h> /* ANSI C; defines clock_t and clock() */
+#include "dr_const.h"
 
-#ifndef CLOCKS_PER_SEC /* Should have been defined in time.h */
-#define CLOCKS_PER_SEC 1000000 /* To prevent compile errors, not always the correct value. */
+#ifdef __cplusplus
+/* if C++, define the rest of this header file as extern C */
+extern "C" {
 #endif
 
-/*
- * POSIX compliant systems should use times() for user timing. 
- * This is the default in Zoltan. Make Zoltan with -DNO_TIMES if
- * your system does not have sys/times.h and times().
- * Note: BSD-like systems may use getrusage() instead for user timing,
- * but that has not been implemented here. 
- */
+/* Global variables for driver */
+extern int Debug_Driver;
+extern int Debug_Chaco_Input;
+extern int Number_Iterations;
+extern int Driver_Action;
+extern int Chaco_In_Assign_Inv;
+extern struct Test_Flags Test;
+extern struct Output_Flags Output;
+extern double Total_Partition_Time;
 
-#if defined(__PUMAGON__) || defined(__LIBCATAMOUNT__) || defined(_WIN32)
-/* Tflops with Cougar & Red Storm w/Catamount does not have sysconf() or times() */
-/* Microsoft Visual Studio does not have times either */
-#define NO_TIMES
-#endif /* __PUMAGON__ */
+#define DEBUG_TRACE_START(proc,yo) \
+  if (((proc) == 0 && Debug_Driver > 1) || (Debug_Driver > 2))  \
+    printf("%d DRIVER ENTERING %s\n", (proc), yo);
+#define DEBUG_TRACE_END(proc,yo) \
+  if (((proc) == 0 && Debug_Driver > 1) || (Debug_Driver > 2))  \
+    printf("%d DRIVER LEAVING %s\n", (proc), yo);
+#define DEBUG_TRACE_DETAIL(proc,yo,str) \
+  if (Debug_Driver > 2) \
+    printf("%d DRIVER %s: %s\n", proc,yo, str);
 
-#ifndef NO_TIMES
-/* #include <sys/types.h> -- Included by sys/times.h on most systems. */
-#include <sys/times.h>
-#include <unistd.h> /* Needed for sysconf() and _SC_CLK_TCK */
+
+#ifdef __cplusplus
+} /* closing bracket for extern "C" */
 #endif
-
-#endif
+#endif /* _DR_EXTERNS_H */
