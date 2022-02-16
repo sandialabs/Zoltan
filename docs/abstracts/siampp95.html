@@ -1,0 +1,24 @@
+<center>
+<b>
+Dynamic Load Balancing for Parallel Finite Element Methods with Adaptive 
+<i>h</i>- and <i>p</i>-Refinement<br>
+</b>
+Karen D. Devine and Joseph E. Flaherty
+<br>
+<i>Proceedings of the Seventh SIAM Conference on Parallel Processing 
+for Scientific Computing</i><br>
+San Francisco, CA, February, 1995.
+<p>
+</center>
+<p>
+
+We describe a dynamic load-balancing strategy for parallel finite element
+methods with adaptive mesh (h-) and order (p-) refinement. The load-balancing
+algorithm is based on the tiling load-balancing system, where global balance
+is achieved by performing local balancing within overlapping neighborhoods of
+processors. Tiling is applied to each mesh level created by the adaptive
+h-refinement. Weights are used in the migration routines to reflect the
+nonuniform elemental work loads caused by adaptive p-refinement. The
+combination of adaptive refinement and tiling significantly reduces total
+execution time relative to fixed-mesh, fixed-order methods yielding comparable
+accuracy, as we demonstrate with experiments on an nCUBE/2. 

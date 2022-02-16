@@ -1,0 +1,23 @@
+<center>
+<b>
+Parallel, adaptive finite element methods for conservation laws <br>
+</b>
+Rupak Biswas, Karen D. Devine, and Joseph E. Flaherty <br>
+<i>Appl. Num. Math.</i>, <b>14</b>, (1994) 255-283.<P>
+</center>
+
+<p>
+
+We construct parallel finite element methods for the solution of hyperbolic
+conservation laws in one and two dimensions.  Spatial discretization is
+performed by a discontinuous Galerkin finite element method using a basis of
+piecewise Legendre polynomials.  Temporal discretization utilizes a
+Runge-Kutta method.  Dissipative fluxes and projection limiting prevent
+oscillations near solution discontinuities.  A posteriori estimates of spatial
+errors are obtained by a <i>p</i>-refinement technique using superconvergence
+at Radau points.  The resulting method is of high order and may be
+parallelized efficiently on MIMD computers.  We compare results using
+different limiting schemes and demonstrate parallel efficiency through
+computations on an nCUBE/2 hypercube.  We also present results using adaptive
+<i>h-</i> and <i>p</i>-refinement to reduce the computational cost of the
+method.

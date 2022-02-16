@@ -1,0 +1,13 @@
+@INPROCEEDINGS{ZoltanParHypRepart07,
+ AUTHOR = "U.V. Catalyurek and E.G. Boman and K.D. Devine and D. Bozdag and R.T.
+          Heaphy and L.A. Riesen",
+ TITLE = "Hypergraph-based Dynamic Load Balancing for Adaptive Scientific 
+	  Computations",
+ BOOKTITLE = "Proc. of 21st International Parallel and Distributed Processing 
+              Symposium (IPDPS'07)",
+ PUBLISHER = "IEEE",
+ YEAR = "2007",
+ NOTE = "Best Algorithms Paper Award.",
+ NOTE = "Also available as Sandia National Labs Tech Report SAND2006-6450C."
+}
+

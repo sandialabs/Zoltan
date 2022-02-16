@@ -1,0 +1,11 @@
+@INCOLLECTION{DevineBomanKarypisPP04,
+    AUTHOR = "Karen D. Devine and Erik G. Boman and George Karypis",
+    TITLE = "Partitioning and Load Balancing for Emerging Parallel 
+             Applications and Architectures",
+    BOOKTITLE = "Frontiers of Scientific Computing",
+    EDITOR = "M. Heroux and A. Raghavan and H. Simon",
+    PUBLISHER = "SIAM",
+    ADDRESS = "Philadelphia",
+    YEAR = 2006 
+}   
+

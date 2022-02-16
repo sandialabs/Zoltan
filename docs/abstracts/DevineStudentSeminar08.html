@@ -1,0 +1,25 @@
+<center>
+<b>
+The PageRank Derby<br>
+</b>
+Karen Devine, Jonathan Berry and Steve Plimpton<br>
+<i>Sandia National Laboratories Tech. Report SAND2008-5162P</i>, July 2008.
+<br>
+<P>
+
+</center>
+
+<p>
+Massively multithreaded parallel architectures such as Cray's MTA and XMT are
+proving to be highly effective for graph analysis algorithms.  By providing
+uniform memory access times for data with much irregularity and little
+locality, these machines have demonstrated excellent scalability for a wide
+range of graph-based algorithms.  However, no apples-to-apples comparisons
+between these architectures and our traditional distributed memory
+architectures had been performed using realistic input data.  In the PageRank
+Derby, we implemented Google's web-page ranking system using both distributed
+memory and massively multithreaded paradigms, and compared performance on the
+Cray MTA and XMT with distributed-memory Linux clusters and RedStorm.   In
+this talk, I will describe the PageRank algorithm and its implementation on
+both massively multithreaded and distributed memory architectures.  And I will
+present the results of the PageRank Derby.

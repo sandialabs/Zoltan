@@ -1,0 +1,10 @@
+@INPROCEEDINGS{ZoltanParHyp06ipdps,
+ AUTHOR = "K.D. Devine and E.G. Boman and R.T. Heaphy and R.H. Bisseling and 
+	   U.V. Catalyurek",
+ TITLE = "Parallel Hypergraph Partitioning for Scientific Computing",
+ BOOKTITLE = "Proc. of 20th International Parallel and Distributed Processing 
+	      Symposium (IPDPS'06)",
+ PUBLISHER = "IEEE",
+ YEAR = "2006"
+}
+

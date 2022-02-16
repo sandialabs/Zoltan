@@ -1,0 +1,9 @@
+@INPROCEEDINGS{DevineICS00,
+  AUTHOR = "Karen Devine and Bruce Hendrickson and Erik Boman and      
+            Matthew St.\ John and Courtenay Vaughan",
+  TITLE = "Design of Dynamic Load-Balancing Tools for Parallel Applications",
+  BOOKTITLE = "Proc.\ Intl.\ Conf.\ on Supercomputing" ,
+  ADDRESS = "Santa Fe, New Mexico",
+  PAGES = "110--118",
+  YEAR = "2000"
+}

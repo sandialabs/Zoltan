@@ -1,0 +1,13 @@
+@techreport{CatalyurekBomanDevine08,
+  title         = {A Repartitioning Hypergraph Model for Dynamic Load Balancing},
+  author        = {Umit Catalyurek and Erik G. Boman and
+                   Karen D. Devine and Doruk Bozdag and
+                   Robert Heaphy and Lee Ann Riesen},
+  institution   = {Sandia National Laboratories},
+  address       = {Albuquerque, NM},
+  year          = {2008},
+  type          = {Sandia National Laboratories Tech. Report},
+  number	= {SAND2008-2304J},
+  note		= {Submitted to J. Par. Dist. Comp.}
+}
+

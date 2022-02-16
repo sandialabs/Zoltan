@@ -1,0 +1,26 @@
+<center>
+<b>
+Parallel adaptive <i>hp</i>-refinement techniques for conservations laws <BR>
+</b>
+Karen D. Devine and Joseph E. Flaherty <br>
+<i>Appl. Num. Math.</i>, <b>20</b>, (1996) 367-386.<P>
+</center>
+<p>
+
+We describe an adaptive <i>hp</i>-refinement local finite element procedure
+for the parallel solution of hyperbolic conservation laws on rectangular
+domains.  The local finite element procedure utilizes spaces of
+piecewise-continuous polynomials of arbitrary degree and coordinated explicit
+Runge-Kutta temporal integration.  A solution limiting procedure produces
+monotonic solutions near discontinuities while maintaining high-order
+accuracy near smooth extrema.  A modified tiling procedure maintains processor
+load balance on parallel, distributed-memory MIMD computers by migrating
+finite elements between processors in overlapping neighborhoods to produce
+locally balanced computations.  Grids are stored in tree data structures, with
+finer grids being offspring of coarser ones.  Within each grid, AVL trees
+simplify the transfer of information between neighboring processors and the
+insertion and deletion of elements as they migrate between processors.
+Computations involving Burgers' and Euler's equations of inviscid flow
+demonstrate the effectiveness of the <i>hp</i>-refinement and balancing
+procedures relative to non-balanced adaptive and balanced non-adaptive
+procedures.

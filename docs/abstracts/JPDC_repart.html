@@ -1,0 +1,52 @@
+<center>
+<b>
+A Repartitioning Hypergraph Model for Dynamic Load Balancing<br>
+</b>
+U. Catalyurek, E. Boman, K. Devine, D. Bozdag, R. Heaphy, L.A. Riesen
+<i>Sandia National Laboratories Tech. Report SAND2008-2304J</i>, April 2008.
+<br>
+Submitted to <i>J. Par. Dist. Comp.</i>
+<P>
+
+</center>
+
+<p>
+In parallel adaptive applications, the computational structure of the
+applications 
+changes over time, leading to load imbalances even though the initial load
+distribu- 
+tions were balanced. To restore balance and to keep communication volume low
+in 
+further iterations of the applications, dynamic load balancing
+(repartitioning) of the 
+changed computational structure is required. Repartitioning differs from
+static load 
+balancing (partitioning) due to the additional requirement of minimizing
+migration 
+cost to move data from an existing partition to a new partition. In this
+paper, we 
+present a novel repartitioning hypergraph model for dynamic load balancing
+that 
+accounts for both communication volume in the application and migration cost 
+to move data, in order to minimize the overall cost. Use of a
+hypergraph-based 
+model allows us to accurately model communication costs rather than
+approximat- 
+ing them with graph-based models. We show that the new model can be realized 
+using hypergraph partitioning with fixed vertices and describe our parallel
+multi- 
+level implementation within the Zoltan load-balancing toolkit. To the best
+of our 
+knowledge, this is the first implementation for dynamic load balancing based
+on 
+hypergraph partitioning. To demonstrate the effectiveness of our approach,
+we con- 
+ducted experiments on a Linux cluster with 1024 processors. The results show
+that, 
+in terms of reducing total cost, our new model compares favorably to the
+graph- 
+based dynamic load balancing approaches, and multilevel approaches improve
+the 
+repartitioning quality significantly. 
+
+

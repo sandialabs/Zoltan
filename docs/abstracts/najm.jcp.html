@@ -1,0 +1,24 @@
+<center>
+<b>Operator-Split Lagrangian-Eulerian Time Integration
+</b><br>
+H.N. Najm, R.B. Milne, J. Ray, K.D. Devine and S.N. Kempka <br>
+Submitted to <i>J. Computational Physics</i>, 2000.
+</center>
+
+<p>
+
+The Particle Strength Exchange (PSE) scheme is useful for modeling diffusion
+of vorticity in a purely Lagrangian numerical construction.  This is done in a
+fully-coupled non-split implementation of diffusion and convection.
+Unfortunately, there is no similarly general Lagrangian scheme for modeling
+the arbitrary circulation source terms, such as those due to baroclinic
+vorticity generation in a reacting flow environment.  We present and analyze
+both non-split and split hybrid Lagrangian-Eulerian formulations that allow
+the modeling of baroclinic vorticity generation.  We find that the non-split
+implementation, even though fully coupled, does not achieve second-order time
+accuracy in the context of a second-order Runge-Kutta construction.  On the
+other hand, the symmetric operator-split formulation does achieve
+second-order convergence, and is clearly superior in this context.  This
+formulation is being presently used in the context of hybrid
+Lagrangian-Eulerian computations of reacting flow.
+

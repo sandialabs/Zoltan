@@ -1,0 +1,31 @@
+<center>
+<b>
+Hypergraph-based Dynamic Load Balancing for Adaptive Scientific Computations
+</b><br>
+Umit V. Catalyurek, Erik G. Boman, Karen D. Devine,
+Doruk Bozdag, Robert Heaphy, Lee Ann Riesen <br>
+<i>Proceedings of IPDPS07</i>, March 2007.<br>
+Best Algorithms Paper Award
+</center>
+
+<p>
+Adaptive scientific computations require that periodic repartitioning
+(load balancing) occur dynamically to maintain load balance.
+Hypergraph partitioning is a successful model for minimizing
+communication volume in scientific computations, and partitioning
+software for the static case is widely available. 
+In this paper, we present a new hypergraph model for the dynamic 
+case, where we minimize the sum of communication in
+the application plus the migration cost to move data, 
+thereby reducing total execution time.
+The new model can be solved using hypergraph partitioning
+with fixed vertices.
+We describe an implementation of a parallel multilevel repartitioning algorithm
+within the Zoltan load-balancing toolkit, which to our knowledge is 
+the first code for dynamic load balancing based on hypergraph partitioning.
+Finally, we present experimental results 
+that demonstrate the effectiveness of our approach on a Linux cluster
+with up to 64 processors. Our new algorithm compares favorably
+to the widely used ParMETIS partitioning software in terms of quality,
+and would have reduced total execution time in most of our test cases. 
+

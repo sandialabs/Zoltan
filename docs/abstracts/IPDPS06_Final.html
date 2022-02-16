@@ -1,0 +1,26 @@
+<center>
+<b>
+Parallel Hypergraph Partitioning for Scientific Computing
+</b><br>
+Karen D. Devine, Erik G. Boman,
+Robert T. Heaphy,
+Rob H. Bisseling, and Umit V. Catalyurek
+<br>
+IPDPS06
+</center>
+
+<p>
+Graph partitioning is often used for load balancing in parallel computing,
+but it is known that hypergraph partitioning has several advantages.
+First, hypergraphs more accurately model communication volume, and second,
+they are more expressive and can better represent nonsymmetric problems.
+Hypergraph partitioning is particularly suited to parallel sparse
+matrix-vector multiplication, a common kernel in scientific computing.
+We present a parallel software package for hypergraph (and sparse matrix)
+partitioning developed at Sandia National Labs. The algorithm is a variation
+on multilevel partitioning.  Our parallel implementation
+is novel in that it uses a two-dimensional data distribution among processors.
+We present empirical results that show our parallel implementation
+achieves good speedup on several large problems (up to 33 million nonzeros)
+with up to 64 processors on a Linux cluster. 
+

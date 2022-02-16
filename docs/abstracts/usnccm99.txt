@@ -1,0 +1,52 @@
+
+Zoltan:  A Library for Dynamic Load Balancing
+
+Karen Devine, Bruce Hendrickson, Matthew St. John, and Erik Boman
+
+Parallel Computing Sciences Department
+Sandia National Laboratories
+Albuquerque, NM  87185-1111
+
+Contact:  kddevin@cs.sandia.gov
+
+In recent years, several high-quality software tools for static 
+partitioning (e.g., Chaco [1], ParMetis [2], Jostle [3]) have been 
+developed.  These tools have enabled the use and comparison of a wide 
+variety of different partitioning algorithms.  General purpose tools for 
+dynamic load balancing, however, have not been readily available. This 
+fact is due to a number of differences between static and dynamic load 
+balancing.  Static partitioners are often run as a preprocessor to an 
+application.  Thus, they can easily use file-based interfaces and data 
+structures different from those of the application.  They may be 
+implemented in serial and may use large amounts of memory and computing 
+time.  Dynamic load-balancing tools, however, must run along with the 
+application.  They must be implemented in parallel, and be fast and 
+memory efficient to maintain the scalability of the application.  They 
+also need function-call interfaces and methods to extract data from the 
+application's data structures.  To be truly general-purpose tools, 
+dynamic load balancers must maintain separation between the data 
+structures of the load-balancing algorithms and the applications using 
+them.  
+
+We will discuss the design and implementation of the Zoltan dynamic 
+load-balancing library.  Zoltan provides an object-oriented function 
+interface between applications and load-balancing algorithms.  Data 
+needed by a load-balancing algorithm are obtained from the application 
+through several simple call-back functions.  In this way, an 
+application's data structures are separated from those of a 
+load-balancing algorithm.  Several different load-balancing algorithms 
+are available in the library, and since a common data structure is not 
+required, new algorithms are easily added to the library.  We will 
+demonstrate the use of the library and assess its performance and 
+overhead costs for finite element applications.
+
+[1] B. Hendrickson and R. Leland.  "The Chaco User's Guide, Version 2.0."
+Tech. Rep. SAND94-2692, Sandia National Laboratories, Albuquerque, 1994.
+
+[2] G. Karypis and V. Kumar.  "ParMetis:  Parallel graph partitioning and
+sparse Matrix Ordering Library."  Tech. Rep. 97-060, Dept. of Comp. Sci.,
+Univ. of Minnesota, Minneapolis, 1997.
+
+[3] C. Walshaw, M. Cross, and M. Everett.  "A Parallelisable Algorithm 
+for Optimising Unstructured Mesh Partitions."  Tech. Rep. 95/IM/03, Univ.
+of Greenwich, London, 1995.

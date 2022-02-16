@@ -1,0 +1,16 @@
+@Manual{zoltanug_v3,
+  title         = {{Zoltan 3.0}: Parallel Partitioning, Load Balancing, and
+                   Data-Management Services; User's Guide},
+  author        = {Erik Boman and Karen Devine and
+                   Robert Heaphy and Bruce Hendrickson and
+                   Vitus Leung and Lee Ann Riesen and
+                   Courtenay Vaughan and Umit Catalyurek and
+                   Doruk Bozdag and William Mitchell and James Teresco},
+  organization  = {Sandia National Laboratories},
+  address       = {Albuquerque, NM},
+  year          = {2007},
+  note          = {Tech. Report SAND2007-4748W
+                   \url{http://www.cs.sandia.gov/Zoltan/ug_html/ug.html}}
+}
+
+

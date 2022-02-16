@@ -1,0 +1,11 @@
+@techreport{catalyurek07,
+  title         = {Hypergraph-based Dynamic Partitioning and Load Balancing},
+  author        = {Umit Catalyurek and Doruk Bozdag and Erik G. Boman and
+                   Karen D. Devine and Robert Heaphy and Lee Ann Riesen},
+  institution   = {Sandia National Laboratories},
+  address       = {Albuquerque, NM},
+  year          = {2007},
+  type          = {Sandia National Laboratories Tech. Report},
+  number	= {SAND2007-0043P}
+}
+

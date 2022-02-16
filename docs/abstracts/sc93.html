@@ -1,0 +1,26 @@
+<center>
+<b>
+A Massively Parallel Adaptive Finite Element Method with Dynamic Load
+Balancing <br>
+</b>
+Karen D. Devine, Joseph E. Flaherty, Stephen R. Wheat and Arthur B. Maccabe
+<br>
+<i>Proceedings of Supercomputing '93</i><br>
+Portland, OR, November, 1993.
+<p>
+</center>
+<p>
+
+We construct massively parallel adaptive finite element methods for the
+solution of hyperbolic conservation laws. Spatial discretization is performed
+by a discontinuous Galerkin finite element method using a basis of piecewise
+Legendre polynomials. Temporal discretization utilizes a Runge-Kutta method.
+Dissipative fluxes and projection limiting prevent oscillations near solution
+discontinuities. The resulting method is of high order and may be parallelized
+efficiently on MIMD computers. We demonstrate parallel efficiency through
+computations on a 1024-processor nCUBE/2 hypercube. We present results using
+adaptive -refinement to reduce the computational cost of the method, and
+tiling, a dynamic, element-based data migration system that maintains global
+load balance of the adaptive method by overlapping neighborhoods of processors
+that each perform local balancing.
+

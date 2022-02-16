@@ -1,0 +1,38 @@
+<center>
+<b>
+Load balancing for the parallel adaptive solution of partial differential equations <br>
+</b>
+H.L. deCougny, K.D. Devine, J.E. Flaherty, R.M. Loy, C. Ozturan, and M.S. Shephard <br>
+<i>Appl. Num. Math.</i>, <b>16</b>, (1994) 157-182.<P>
+</center>
+<p>
+
+An adaptive technique for a partial differential system automatically 
+adjusts a computational mesh or varies the order of a numerical procedure with
+a goal of obtaining a solution satisfying prescribed accuracy criteria in an
+optimal fashion.  Processor load imbalances will, therefore, be introduced at
+adaptive enrichment steps during the coarse of a parallel computation.  We
+develop and describe three procedures for retaining and restoring load balance
+that have low unit cost and are appropriate for use in an adaptive solution
+environment. <br>
+
+<p>
+Tiling balances load by using local optimality criteria within overlapping
+processor neighborhoods.  Elemental data are migrated between processors
+within the same neighborhoods to restore balance.  Tiling is restricted to
+uniform two-dimensional meshes and provides limited control of communications
+volume by priority-based element selection criteria.  These shortcomings can
+potentially be overcome by creating a dynamic partition graph connecting
+processors and their neighboring regions.   After coloring the edges of the
+graph, elemental data are iteratively transferred between processors by
+pairwise exchange to permit a more global migration. <br>
+
+<p>
+Octree decomposition of a spatial domain is a successful three-dimensional
+mesh generation strategy.  The octree structure facilitates a rapid load
+balancing procedure by performing tree traversals that (i) appraise subtree
+costs and (ii) partition spatial regions accordingly.<br>
+<p>
+Computational results are reported for two- and three-dimensional problems
+using nCUBE/2 hypercube, MasPar MP-2, and Thinking Machines CM-5 computers.
+

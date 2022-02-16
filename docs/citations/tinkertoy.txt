@@ -1,0 +1,10 @@
+ARTICLE{DevineToolkit,
+  AUTHOR = "Karen D. Devine and Bruce A. Hendrickson" ,
+  TITLE = "Tinkertoy Parallel Programming: A Case Study with {Zoltan}",
+  JOURNAL = "Int.\ J.\ Computational Science and Engineering",
+  VOLUME = 1,
+  NUMBER = "2-4",
+  PAGES = "64--72",
+  YEAR = 2005
+}
+
