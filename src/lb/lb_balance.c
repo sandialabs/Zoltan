@@ -835,12 +835,13 @@ End:
 /*****************************************************************************/
 /*****************************************************************************/
 /*****************************************************************************/
+typedef int partdist_int6_t[6];
 
 int Zoltan_LB_Build_PartDist(ZZ *zz)
 {
 char *yo = "Zoltan_LB_Build_PartDist";
 int ierr = ZOLTAN_OK;
-int inflag[6], outflag[6] = {0,0,-1,0,0,0};
+partdist_int6_t inflag, outflag = {0,0,-1,0,0,0};
 int global_parts_set = 0;   /* number of procs on which NUM_GLOBAL_PARTS 
                                parameter was set. */
 int local_parts_set = 0;    /* number of procs on which NUM_LOCAL_PARTS
@@ -859,8 +860,12 @@ int local_parts = 0;
 int *local_parts_params = NULL;
 int i, j, cnt, pcnt;
 int frac = 0, mod = 0;
+MPI_Datatype mpi_int6_t;
 MPI_Op op;
 MPI_User_function Zoltan_PartDist_MPIOp;
+
+  MPI_Type_contiguous (6, MPI_INT, &mpi_int6_t);
+  MPI_Type_commit (&mpi_int6_t);
 
   MPI_Op_create(&Zoltan_PartDist_MPIOp,1,&op);
 
@@ -873,8 +878,9 @@ MPI_User_function Zoltan_PartDist_MPIOp;
   inflag[4] = (zz->LB.Num_Global_Parts_Param != zz->LB.Prev_Global_Parts_Param);
   inflag[5] = (zz->LB.Num_Local_Parts_Param != zz->LB.Prev_Local_Parts_Param);
 
-  MPI_Allreduce(inflag, outflag, 6, MPI_INT, op, zz->Communicator);
+  MPI_Allreduce(&inflag, &outflag, 1, mpi_int6_t, op, zz->Communicator);
   MPI_Op_free(&op);
+  MPI_Type_free(&mpi_int6_t);
 
   if (!outflag[4] && !outflag[5]) {
     /* Parameter values have not changed since last invocation of Zoltan. */
@@ -1106,15 +1112,21 @@ void Zoltan_PartDist_MPIOp(
   int *len, 
   MPI_Datatype *dptr)
 {
-int *int_in = (int *) in;
-int *int_inout = (int *) inout;
-
-  int_inout[0] += int_in[0];
-  int_inout[1] += int_in[1];
-  int_inout[2] = ((int_in[2] > int_inout[2]) ? int_in[2] : int_inout[2]);
-  int_inout[3] += int_in[3];
-  int_inout[4] += int_in[4];
-  int_inout[5] += int_in[5];
+//int *int_in = (int *) in;
+//int *int_inout = (int *) inout;
+  partdist_int6_t* int_in = (partdist_int6_t *) in;
+  partdist_int6_t* int_inout = (partdist_int6_t* ) inout;
+  const int size = *len;
+  int i;
+  for( i = 0; i < size; ++i )
+  {
+    int_inout[i][0] += int_in[i][0];
+    int_inout[i][1] += int_in[i][1];
+    int_inout[i][2] = ((int_in[i][2] > int_inout[i][2]) ? int_in[i][2] : int_inout[i][2]);
+    int_inout[i][3] += int_in[i][3];
+    int_inout[i][4] += int_in[i][4];
+    int_inout[i][5] += int_in[i][5];
+  }
 }
 
 #ifdef __cplusplus
